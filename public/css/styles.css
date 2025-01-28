@@ -1,0 +1,337 @@
+:root {
+    --primary-color: #FF4757;      /* Energetic Red */
+    --secondary-color: #2ED573;    /* Fresh Green */
+    --accent-color: #5352ED;       /* Royal Blue */
+    --background-color: #F8F9FA;   /* Light Gray */
+    --text-color: #2F3542;         /* Dark Gray */
+    --success-color: #2ED573;      /* Green */
+    --warning-color: #FFA502;      /* Orange */
+    --danger-color: #FF4757;       /* Red */
+    --light-gray: #F1F2F6;
+    --dark-gray: #2F3542;
+}
+
+/* Typography Enhancements */
+body {
+    background: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.7;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Clash Display', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+.main-title {
+    font-size: 4.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Card Enhancements */
+.card {
+    border: none;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.card-title {
+    color: var(--primary-color);
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Button Styles */
+.btn {
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, var(--primary-color), #FF6B81);
+    border: none;
+    box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 71, 87, 0.4);
+}
+
+/* Background Patterns and Images */
+.fitness-bg {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('../images/fitness-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+    overflow: hidden;
+}
+
+.fitness-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 71, 87, 0.3) 0%, rgba(83, 82, 237, 0.3) 100%);
+    z-index: 1;
+}
+
+.section-workout {
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+                url('../images/workout.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.section-workout::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255, 71, 87, 0.2), rgba(46, 213, 115, 0.2));
+}
+
+/* Glass Effect Cards */
+.glass-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 24px;
+    padding: 3rem;
+    color: white;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Navigation Enhancement */
+.navbar {
+    background: linear-gradient(to right, var(--primary-color), var(--accent-color)) !important;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-family: 'Clash Display', sans-serif;
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: white !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Form Styling */
+.form-control {
+    border: 2px solid var(--light-gray);
+    border-radius: 12px;
+    padding: 1rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(255, 71, 87, 0.1);
+}
+
+/* Calendar Customization */
+.fc {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.fc-button {
+    background: var(--primary-color) !important;
+    border: none !important;
+    border-radius: 8px !important;
+}
+
+/* Animations */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fadeUp {
+    animation: fadeUp 0.6s ease-out forwards;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 3rem;
+    }
+    
+    .glass-card {
+        padding: 2rem;
+    }
+    
+    .btn {
+        width: 100%;
+        margin: 0.5rem 0;
+    }
+} 
+
+/* Hero Stats */
+.hero-stats {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 2rem;
+    display: inline-flex;
+}
+
+.stat-item {
+    padding: 0 2rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stat-item:last-child {
+    border-right: none;
+}
+
+.stat-number {
+    font-family: 'Clash Display', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 1rem;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Icon Circle */
+.icon-circle {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(45deg, rgba(255, 71, 87, 0.1), rgba(83, 82, 237, 0.1));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+/* Features List */
+.features-list {
+    font-size: 1.1rem;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+/* Schedule Preview */
+.class-time {
+    font-size: 1.1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    margin-bottom: 1rem;
+}
+
+/* Animation Delays */
+.delay-1 {
+    animation-delay: 0.2s;
+}
+
+.delay-2 {
+    animation-delay: 0.4s;
+}
+
+.delay-3 {
+    animation-delay: 0.6s;
+}
+
+/* Enhanced Card Styles */
+.card {
+    padding: 2rem;
+    transform: translateY(0);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Enhanced Button Styles */
+.btn-lg {
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+}
+
+.button-group {
+    margin-top: 2rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .hero-stats {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .stat-item {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 1rem 0;
+    }
+
+    .stat-item:last-child {
+        border-bottom: none;
+    }
+
+    .glass-card {
+        margin: 1rem;
+    }
+} 
+
+/* Footer Enhancement */
+.footer {
+    background: linear-gradient(to right, var(--dark-gray), #1a1c20);
+    color: white;
+    padding: 2rem 0;
+}
+
+.footer .text-light {
+    opacity: 0.9;
+} 

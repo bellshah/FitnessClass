@@ -1,0 +1,75 @@
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --background-color: #f8f9fa;
+    --text-color: #333;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Arial', sans-serif;
+}
+
+.welcome-container {
+    padding: 50px 20px;
+}
+
+.main-title {
+    color: var(--primary-color);
+    margin-bottom: 50px;
+    font-weight: bold;
+}
+
+.section-card {
+    margin: 20px;
+}
+
+.card {
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-title {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.button-group {
+    margin-top: 30px;
+}
+
+.button-group .btn {
+    margin: 0 10px;
+    padding: 10px 30px;
+    border-radius: 25px;
+}
+
+/* Form Styles */
+.auth-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.auth-form {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 5px;
+} 
