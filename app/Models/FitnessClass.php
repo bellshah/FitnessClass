@@ -32,4 +32,11 @@ class FitnessClass extends Model
     {
         return $this->hasMany(Booking::class, 'class_id');
     }
+
+    public function availableSlots()
+    {
+        $bookedCount = $this->bookings()->whereIn('status', ['pending', 'approved'])->count();
+
+        return max(0, $this->capacity - $bookedCount);
+    }
 } 

@@ -22,7 +22,7 @@ class BookingController extends Controller
 
     public function approve(Booking $booking)
     {
-        $this->authorize('update', $booking->fitnessClass);
+        abort_if($booking->fitnessClass->instructor_id !== Auth::guard('instructor')->id(), 403);
 
         if ($booking->fitnessClass->availableSlots() > 0) {
             $booking->update(['status' => 'approved']);
@@ -34,9 +34,9 @@ class BookingController extends Controller
 
     public function reject(Booking $booking)
     {
-        $this->authorize('update', $booking->fitnessClass);
-        
-        $booking->update(['status' => 'cancelled']);
+        abort_if($booking->fitnessClass->instructor_id !== Auth::guard('instructor')->id(), 403);
+
+        $booking->update(['status' => 'rejected']);
         return back()->with('success', 'Booking rejected successfully.');
     }
 } 

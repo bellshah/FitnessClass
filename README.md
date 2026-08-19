@@ -1,66 +1,78 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# FitnessClass
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A Laravel-based booking and scheduling system for fitness classes, connecting **instructors** who publish classes with **members** who book them.
 
-## About Laravel
+## Description
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+FitnessClass provides two independent, guard-separated portals built on Laravel 11:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Instructor portal** — instructors register, create and manage fitness classes (name, description, capacity, start/end time), and review bookings made against their classes.
+- **Member portal** — members register, browse available classes, book a spot, and cancel their own bookings.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Bookings move through a simple status workflow: `pending → approved / rejected`, with `cancelled` available to the member at any point before the class starts. Every web (session-based) flow has a parallel JSON API (token auth via Sanctum) exposing the same actions for external/API clients.
 
-## Learning Laravel
+## Impact
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Gives instructors a lightweight way to publish a class schedule and manage capacity/attendance without spreadsheets or manual sign-up sheets.
+- Gives members self-service booking and cancellation instead of contacting an instructor directly.
+- Enforces capacity and duplicate-booking checks server-side, reducing overbooking and double-booking of the same class.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Requirements
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Functional
 
-## Laravel Sponsors
+- Member registration/login and instructor registration/login (separate auth guards).
+- Instructors can create, edit, and delete fitness classes with a capacity and a start/end time window.
+- Members can view available classes, book a class (subject to capacity and duplicate-booking checks), and cancel their own bookings.
+- Instructors can view and act on bookings made against their classes.
+- A token-based JSON API mirrors the web flows above for external clients.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Environment
 
-### Premium Partners
+- PHP `^8.2` with the extensions Laravel 11 requires
+- [Composer](https://getcomposer.org/)
+- Node.js + npm (for the Vite/Tailwind frontend build)
+- A database — SQLite by default (see `.env.example`), MySQL also supported
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Tech Stack
 
-## Contributing
+| Layer | Technology |
+|---|---|
+| Backend framework | Laravel `^11.31` |
+| Auth / scaffolding | Laravel Jetstream `^5.3` (Livewire-based), Laravel Sanctum `^4.0` |
+| Interactivity | Livewire `^3.0` |
+| Frontend build | Vite `^6`, Tailwind CSS `^3.4` (`forms`, `typography` plugins), Axios |
+| Database | SQLite (default) / MySQL, via Eloquent ORM |
+| Testing | PHPUnit `^11` |
+| Dev tooling | Laravel Pint (code style), Laravel Sail, Laravel Pail (log tailing) |
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Getting Started
 
-## Code of Conduct
+```bash
+composer install
+npm install
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
 
-## Security Vulnerabilities
+# Run app server, queue listener, log tailer, and Vite dev server together
+composer dev
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Or run pieces individually with `php artisan serve` and `npm run dev`.
+
+## Preferences
+
+- **Code style**: run `vendor/bin/pint` before committing.
+- **Structure**: controllers are organized by actor/guard — `Controllers/Api`, `Controllers/Auth`, `Controllers/Member`, `Controllers/Instructor`. Follow this grouping when adding new endpoints rather than introducing a new pattern.
+- **Testing**: add Feature tests under `tests/Feature` for new Member/Instructor/Booking behavior — this area currently has no domain-specific test coverage (only Jetstream/Fortify scaffolding tests exist).
+
+### Known issues / notes for contributors
+
+- The default Jetstream `User` model is leftover scaffolding, unrelated to the Member/Instructor domain flow. Jetstream's own profile/team pages (reached via `<x-app-layout>`) aren't linked from the app's navigation and are out of scope of the Member/Instructor feature set.
+- `resources/views/layouts/app.blade.php` is a `@yield`-based Bootstrap layout used only by the welcome/login/register pages; it is a different, unrelated file from Jetstream's Tailwind `<x-app-layout>` component conventions — don't assume the two are interchangeable.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Licensed under the [MIT license](https://opensource.org/licenses/MIT).

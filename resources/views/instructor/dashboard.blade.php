@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
         initialView: 'dayGridMonth',
         events: '{{ route("instructor.classes.json") }}',
         eventClick: function(info) {
-            window.location.href = '/instructor/classes/' + info.event.id;
+            window.location.href = '/instructor/classes/' + info.event.id + '/edit';
         }
     });
     calendar.render();

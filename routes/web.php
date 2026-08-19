@@ -58,15 +58,7 @@ Route::group(['prefix' => 'instructor', 'as' => 'instructor.'], function () {
         Route::get('/classes-json', [ClassController::class, 'getClassesJson'])->name('classes.json');
         // Add bookings route
         Route::get('/bookings', [BookingController::class, 'index'])->name('bookings');
+        Route::post('/bookings/{booking}/approve', [BookingController::class, 'approve'])->name('bookings.approve');
+        Route::post('/bookings/{booking}/reject', [BookingController::class, 'reject'])->name('bookings.reject');
     });
-});
-
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
 });

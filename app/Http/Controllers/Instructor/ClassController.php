@@ -39,11 +39,15 @@ class ClassController extends Controller
 
     public function edit(FitnessClass $class)
     {
+        abort_if($class->instructor_id !== Auth::guard('instructor')->id(), 403);
+
         return view('instructor.classes.edit', compact('class'));
     }
 
     public function update(Request $request, FitnessClass $class)
     {
+        abort_if($class->instructor_id !== Auth::guard('instructor')->id(), 403);
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
@@ -60,6 +64,8 @@ class ClassController extends Controller
 
     public function destroy(FitnessClass $class)
     {
+        abort_if($class->instructor_id !== Auth::guard('instructor')->id(), 403);
+
         $class->delete();
         return redirect()->route('instructor.classes')
             ->with('success', 'Class deleted successfully!');

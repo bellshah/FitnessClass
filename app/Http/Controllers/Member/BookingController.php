@@ -30,7 +30,7 @@ class BookingController extends Controller
 
         // Check if member already booked this class
         $existingBooking = Booking::where('member_id', Auth::guard('member')->id())
-            ->where('fitness_class_id', $fitnessClass->id)
+            ->where('class_id', $fitnessClass->id)
             ->where('status', '!=', 'cancelled')
             ->first();
 
@@ -45,7 +45,7 @@ class BookingController extends Controller
 
         Booking::create([
             'member_id' => Auth::guard('member')->id(),
-            'fitness_class_id' => $fitnessClass->id,
+            'class_id' => $fitnessClass->id,
             'status' => 'pending'
         ]);
 

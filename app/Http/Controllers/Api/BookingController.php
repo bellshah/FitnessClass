@@ -34,7 +34,7 @@ class BookingController extends Controller
 
         $booking = Booking::create([
             'member_id' => Auth::id(),
-            'fitness_class_id' => $validated['fitness_class_id'],
+            'class_id' => $validated['fitness_class_id'],
             'status' => 'pending'
         ]);
 
